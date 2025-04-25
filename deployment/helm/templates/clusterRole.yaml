@@ -1,0 +1,15 @@
+# clusterrole.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ template "app.name" .}}-cluster-role
+rules:
+- apiGroups: [
+        "",
+        "apps",
+        "rbac.authorization.k8s.io",
+        "roles.rbac.authorization.k8s.io",
+        "authorization.k8s.io",
+      ]
+  resources: ["services"]
+  verbs: ["get", "watch", "list"]

@@ -1,0 +1,22 @@
+replicaCount: 1
+name: plugin-kubernetes-operator
+
+image:
+  repository: node-654e3bca7fbeeed18f81d7c7.ps-xaas.io/pcm-cloud/plugin-kubernetes-operator
+  imagePullPolicy: Always
+  tag: dev
+
+config:
+  namespace: plugins
+  kongAdminApi: http://kong-gateway-kong-admin.kong.svc.cluster.local:8001
+  plugin:
+    tags: pcm-plugin
+    portNamePostfix: proxy-app-port
+    httpMethods: GET,PUT,POST,DELETE,OPTIONS,HEAD,PATCH
+
+server:
+  port: 8080
+
+
+
+

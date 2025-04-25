@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "app.name" .}}
+  labels:
+    app: {{ template "app.name" .}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "app.name" .}}
+  template:
+    metadata:
+      labels:
+        app: {{ template "app.name" .}}
+    spec:
+      serviceAccountName: {{ template "app.name" .}}-account
+      containers:
+        - name: {{ template "app.name" .}}
+          image: {{ .Values.image.repository}}:{{ .Values.image.tag}}
+          imagePullPolicy: {{ .Values.image.imagePullPolicy}}
+          env:
+            - name: "NAMESPACE"
+              value: {{ .Values.config.namespace }}
+            - name: "KONG_ADMIN_API"
+              value: {{ .Values.config.kongAdminApi }}
+            - name: "PLUGIN_TAGS"
+              value: {{ .Values.config.plugin.tags }}
+            - name: "PLUGIN_PORT_NAME_POSTFIX"
+              value: {{ .Values.config.plugin.portNamePostfix }}
+            - name: "PLUGIN_HTTP_METHODS"
+              value: {{ .Values.config.plugin.httpMethods }}
+
+          ports:
+            - containerPort: {{ .Values.server.port }}
+          # resources:
+          #   limits:
+          #     memory: 128Mi
+          #     cpu: "1"
+          #   requests:
+          #     memory: 128i
+          #     cpu: "0.2"
