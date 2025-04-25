@@ -4,7 +4,7 @@ go 1.24.2
 
 require (
 	github.com/spf13/viper v1.18.1
-	go.uber.org/zap v1.26.0
+	go.uber.org/zap v1.27.0
 	k8s.io/api v0.28.4
 	k8s.io/apimachinery v0.28.4
 	k8s.io/client-go v0.28.4
